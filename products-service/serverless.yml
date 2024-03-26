@@ -57,13 +57,33 @@ provider:
 #    - '!exclude-me-dir/**'
 #    - include-me.js
 #    - include-me-dir/**
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+  - serverless-offline
+  
+package:
+  individually: true
 
+custom:
+    autoswagger:
+        title: 'string'
+        apiType: 'http'
+        generateSwaggerOnDeploy: true
+        typefiles: []
+        host: 'k2tk5imuw1.execute-api.eu-west-1.amazonaws.com/dev'
 functions:
   getProductsList:
-    handler: handler.getProductsList
+    handler: getProductsList.getProductsList
     events:
       - http:
           path: products
+          method: GET
+  getProductsById:
+    handler: getProductsById.getProductsById
+    events:
+      - http:
+          path: products/{productId}
           method: GET
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
